@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IncidentMind — Memory-Powered Incident Response</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="eyebrow">INCIDENTMIND</div>
+    <h1>Incident Response Agent</h1>
+    <p>Production troubleshooting that remembers what happened before.</p>
+  </div>
+  <div class="badge">Hindsight Memory</div>
+</header>
+
+<main class="layout">
+  <section class="panel">
+    <h2>New incident</h2>
+    <p class="muted">Run the same incident with memory OFF and ON to see the difference.</p>
+
+    <label>Incident title</label>
+    <input id="title" value="Checkout API latency after database deployment">
+
+    <label>Service</label>
+    <input id="service" value="checkout-api">
+
+    <label>Severity</label>
+    <select id="severity">
+      <option>P1</option><option selected>P2</option><option>P3</option><option>P4</option>
+    </select>
+
+    <label>Symptoms</label>
+    <textarea id="symptoms">p95 latency jumped from 420ms to 3.8s after the latest database deployment. Error rate is still low, but checkout requests are timing out intermittently.</textarea>
+
+    <div class="actions">
+      <button class="secondary" onclick="analyze(false)">Analyze without memory</button>
+      <button onclick="analyze(true)">Analyze with Hindsight</button>
+    </div>
+
+    <hr>
+
+    <h3>Store a resolved incident</h3>
+    <label>Root cause</label>
+    <input id="root_cause" value="A missing composite index caused sequential scans on the orders table.">
+    <label>Resolution</label>
+    <input id="resolution" value="Added the composite index, rolled back the query plan change, and verified p95 latency.">
+    <button class="save" onclick="saveIncident()">Save incident to memory</button>
+    <div id="saveStatus" class="status"></div>
+  </section>
+
+  <section class="panel result-panel">
+    <div class="result-head">
+      <div>
+        <div class="eyebrow">LIVE ANALYSIS</div>
+        <h2 id="resultTitle">Waiting for an incident</h2>
+      </div>
+      <span id="memoryBadge" class="memory-badge">—</span>
+    </div>
+
+    <div id="answer" class="answer">Enter an incident and run an analysis.</div>
+
+    <div class="memory-box">
+      <div class="result-head">
+        <h3>Recalled memories</h3>
+        <span id="memoryCount">0</span>
+      </div>
+      <div id="memories" class="memories">No memories retrieved yet.</div>
+    </div>
+  </section>
+</main>
+
+<section class="history panel">
+  <div class="result-head">
+    <div><div class="eyebrow">LOCAL INCIDENT LOG</div><h2>Saved incidents</h2></div>
+    <button class="secondary" onclick="loadHistory()">Refresh</button>
+  </div>
+  <div id="historyList"></div>
+</section>
+<script src="/static/app.js"></script>
+</body>
+</html>

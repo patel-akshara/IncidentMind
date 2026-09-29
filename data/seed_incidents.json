@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Checkout API latency after database deployment",
+    "service": "checkout-api",
+    "severity": "P2",
+    "symptoms": "p95 latency rose from 420ms to 3.8s after a database deployment; intermittent checkout timeouts.",
+    "root_cause": "A missing composite index caused sequential scans on the orders table.",
+    "resolution": "Added the composite index, rolled back the query-plan change, and verified latency recovery."
+  },
+  {
+    "title": "Checkout timeouts during evening traffic",
+    "service": "checkout-api",
+    "severity": "P1",
+    "symptoms": "Checkout requests timed out while database CPU reached 92%; error rate increased.",
+    "root_cause": "A high-cardinality query caused repeated full scans under concurrent traffic.",
+    "resolution": "Added a covering index and temporarily reduced expensive retry behavior."
+  },
+  {
+    "title": "Order search became slow after schema change",
+    "service": "orders-db",
+    "severity": "P2",
+    "symptoms": "Order lookup latency increased immediately after a schema migration.",
+    "root_cause": "The migration removed an index used by the most frequent customer lookup query.",
+    "resolution": "Restored the index and added a migration check to the deployment pipeline."
+  }
+]
