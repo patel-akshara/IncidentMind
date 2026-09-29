@@ -158,21 +158,20 @@ That experience becomes available to future investigations.
 
 ### IncidentMind Dashboard
 
-_Screenshot will be added here._
+![IncidentMind Dashboard](screenshots/dashboard.png)
 
 ### Before — Memory Disabled
 
-_Screenshot will be added here._
+![IncidentMind — Memory Disabled](screenshots/memory-off.png)
 
 ### After — Hindsight Memory Enabled
 
-_Screenshot will be added here._
+![IncidentMind — Hindsight Memory Enabled](screenshots/memory-on.png)
 
 ### Recalled Historical Incidents
 
-_Screenshot will be added here._
+![IncidentMind — Recalled Historical Incidents](screenshots/memory-recall.png)
 
----
 ## 🏗️ Architecture
 
 IncidentMind uses a Flask backend that connects the user interface with SQLite, Hindsight, and Groq.
